@@ -1,2 +1,2 @@
 # freecodecamp
-Exercices made with freecodecamp
+Exercices made with Freecodecamp / Codecademy
