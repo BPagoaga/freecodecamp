@@ -276,3 +276,145 @@ Accessing Private Variables
 
 Although we cannot directly access private variables from outside the class, there is a way to get around this. We can define a public method that returns the value of a private variable.
 */
+
+function Person(first,last,age) {
+   this.firstname = first;
+   this.lastname = last;
+   this.age = age;
+   var bankBalance = 7500;
+  
+   this.getBalance = function() {
+      // your code should return the bankBalance
+      return bankBalance;
+   };
+}
+
+var john = new Person('John','Smith',30);
+console.log(john.bankBalance);
+
+// create a new variable myBalance that calls getBalance()
+var myBalance = john.getBalance();
+console.log(myBalance);
+
+/*Create a method called askTeller within the Person class that returns the returnBalance method. This means that it returns the method itself and NOT the result of calling that method. So you should NOT have parentheses after returnBalance.
+
+Because askTeller returns a method, we need to call it to make it any use. This is what var myBalance = myBalanceMethod(); does. */
+
+function Person(first,last,age) {
+   this.firstname = first;
+   this.lastname = last;
+   this.age = age;
+   var bankBalance = 7500;
+  
+   var returnBalance = function() {
+      return bankBalance;
+   };
+       
+   // create the new function here
+   this.askTeller = function() {
+       return returnBalance;
+   }
+}
+
+var john = new Person('John','Smith',30);
+console.log(john.returnBalance);
+var myBalanceMethod = john.askTeller();
+var myBalance = myBalanceMethod();
+console.log(myBalance);
+
+
+
+
+// Passing Arguments
+
+function Person(first,last,age) {
+   this.firstname = first;
+   this.lastname = last;
+   this.age = age;
+   var bankBalance = 7500;
+  
+   this.askTeller = function(pass) {
+     if (pass == 1234) return bankBalance;
+     else return "Wrong password.";
+   };
+}
+
+var john = new Person('John','Smith',30);
+/* the variable myBalance should access askTeller()
+   with a password as an argument  */
+var myBalance = john.askTeller(1234);
+
+
+
+
+// for-in + typeof
+
+var languages = {
+    english: "Hello!",
+    french: "Bonjour!",
+    notALanguage: 4,
+    spanish: "Hola!"
+};
+
+// print hello in the 3 different languages
+for (var language in languages) {
+    if (typeof languages[language] === "string") {
+        console.log(languages[language]);
+    }
+}
+
+
+
+
+// prototype + this
+
+function Dog (breed) {
+    this.breed = breed;
+};
+
+// add the sayHello method to the Dog class 
+// so all dogs now can say hello
+Dog.prototype.sayHello = function(){
+    console.log("Hello this is a " +  this.breed + " dog");
+}
+
+
+var yourDog = new Dog("golden retriever");
+yourDog.sayHello();
+
+var myDog = new Dog("dachshund");
+myDog.sayHello();
+
+
+
+
+/*Private Eye
+
+Recall that:
+
+    Public properties can be accessed from outside the class
+    Private properties can only be accessed from within the class
+
+Using constructor notation, a property declared as this.property = "someValue;" will be public, whereas a property declared with var property = "hiddenValue;" will be private.
+
+In this exercise, hit run and you'll see that all your grades are exposed! You really just want people to know your overall GPA.*/
+
+
+function StudentReport() {
+    var grade1 = 4;
+    var grade2 = 2;
+    var grade3 = 1;
+    this.getGPA = function() {
+        return (grade1 + grade2 + grade3) / 3;
+    };
+}
+
+var myStudentReport = new StudentReport();
+
+for(var x in myStudentReport) {
+    if(typeof myStudentReport[x] !== "function") {
+        console.log("Muahaha! " + myStudentReport[x]);
+    }
+}
+
+console.log("Your overall GPA is " + myStudentReport.getGPA());
