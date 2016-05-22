@@ -45,3 +45,29 @@ function convertToRoman(num) {
 }
 
 convertToRoman(36);
+
+
+
+
+
+/*==========================
+Convert HTML Entities
+==========================*/
+
+
+function convertHTML(str) {
+  var forbiddenChars = ["&","<",">","\"","'"];
+  var entities = ["&amp;","&lt;","&gt;","&quot;","&apos;"];
+  
+  for (var i=0; i<str.length; i++){
+    var pos = forbiddenChars.indexOf(str.charAt(i));
+    if ( pos !== -1){
+      str = str.replace(str.charAt(i), entities[pos]);
+    }
+  }
+  
+  return str;
+}
+
+convertHTML("Dolce & Gabbana");
+
