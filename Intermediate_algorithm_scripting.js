@@ -262,3 +262,53 @@ function smallestCommons(arr) {
 
 smallestCommons([1,5]);
 
+
+
+
+/*===================
+Finder Keeper
+===================*/
+
+
+function findElement(arr, func) {
+  var num = 0;
+  
+  var newArray = arr.filter(func);
+  num = newArray[0];
+  return num;
+}
+
+findElement([1, 2, 3, 4], function(num){ return num % 2 === 0; });
+
+
+
+
+/*===================
+Drop it !
+===================*/
+
+
+
+function dropElements(arr, func) {
+  // Drop them elements.
+  // we set this to check if the arr is untouched
+  var newArr = arr;
+  
+  // iterating trough arr
+  for (var i =0; i<arr.length; i++){
+    if(func(arr[i])){ //if func return true, then we can slice arr, beginning at the current index and ending at the last item
+      arr=arr.slice(i);
+      i=arr.length; // and we set i so that we can end the loop immediatly
+    }
+  }
+  
+  // we want our function to return [] if arr is untouched
+  if (arr === newArr){
+    return [];
+  }
+  
+  return arr;
+}
+
+
+dropElements([1, 2, 3, 4], function(n) {return n > 5;});
