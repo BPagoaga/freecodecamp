@@ -228,7 +228,6 @@ sumPrimes(977);
 Smallest Common Multiple
 =======================*/
 // for this bonfire, I had to desactivate the protection against infinite loops. The calculation takes a little bit of time.
-// There are better solutions, exposed on others github accounts. I am trying to use the array.every() method to improve this calculation time.
 
 // noprotect
 
@@ -238,42 +237,28 @@ function smallestCommons(arr) {
     return a-b;
   });
   
-  var full_arr=[],
-      arr_bool=[],
-      scm = 0,
-      condition = false;
+  var full_arr=[], //this will contain all the integers to test
+      scm = 0, // this is the smallest common multiple our function will return
+      condition = false; //we will use this condition to get out of our while loop
   
+  // defining all the integers to test
   for (var i = arr[0]; i<=arr[1];i++){
     full_arr.push(i);
   }
   
+  // while we don't have a result for scm, we increase it and test again
   while(!condition){
     scm++;
     
-    full_arr.forEach( testRemainder );
-    
-    // if condition === true, then we have our result and we can end the while loop
-    condition = arr_bool.indexOf(false) === -1;
-    
-    // reset this array for the next forEach loop
-    arr_bool = [];
-                   
+    // the .every method will return true if all the elements in the array pass the test
+    condition = full_arr.every( function(element){
+      return scm % element === 0;
+    } );                   
  }
-  
- function testRemainder(element){
-   if( scm % element === 0 ){
-        condition = true;
-        
-      }else{
-        condition = false;
-      }
-      
-      arr_bool.push(condition);
- }
-  
   
   return scm;
 }
 
 
 smallestCommons([1,5]);
+
