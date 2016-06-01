@@ -312,3 +312,41 @@ function dropElements(arr, func) {
 
 
 dropElements([1, 2, 3, 4], function(n) {return n > 5;});
+
+
+
+
+
+/*===============
+Steamroller
+===============*/
+
+ 
+function steamrollArray(arr) {
+  // I'm a steamroller, baby
+  
+  //this array will get the flattened items
+  var newArray = [];
+  
+  // the recursive function
+  var flatten = function(arg){
+      
+    // if the item is an array, we apply the recursive function
+    if(Array.isArray(arg)){
+      arg.forEach(function(a){
+        flatten(a);
+      });
+      
+    // if it's not, we just push it to our final array
+    }else{
+      newArray.push(arg);
+    }
+  };
+  
+  // calling the recursive function on each item of the initial array
+  arr.forEach(flatten);
+  
+  return newArray;
+}
+
+steamrollArray([1, [2], [3, [[4]]]]);
