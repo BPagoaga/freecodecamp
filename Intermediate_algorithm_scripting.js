@@ -219,3 +219,61 @@ function sumPrimes(num) {
 }
 
 sumPrimes(977);
+
+
+
+
+
+/*=======================
+Smallest Common Multiple
+=======================*/
+// for this bonfire, I had to desactivate the protection against infinite loops. The calculation takes a little bit of time.
+// There are better solutions, exposed on others github accounts. I am trying to use the array.every() method to improve this calculation time.
+
+// noprotect
+
+function smallestCommons(arr) {
+  // sort array
+  arr.sort(function(a,b){
+    return a-b;
+  });
+  
+  var full_arr=[],
+      arr_bool=[],
+      scm = 0,
+      condition = false;
+  
+  for (var i = arr[0]; i<=arr[1];i++){
+    full_arr.push(i);
+  }
+  
+  while(!condition){
+    scm++;
+    
+    full_arr.forEach( testRemainder );
+    
+    // if condition === true, then we have our result and we can end the while loop
+    condition = arr_bool.indexOf(false) === -1;
+    
+    // reset this array for the next forEach loop
+    arr_bool = [];
+                   
+ }
+  
+ function testRemainder(element){
+   if( scm % element === 0 ){
+        condition = true;
+        
+      }else{
+        condition = false;
+      }
+      
+      arr_bool.push(condition);
+ }
+  
+  
+  return scm;
+}
+
+
+smallestCommons([1,5]);
