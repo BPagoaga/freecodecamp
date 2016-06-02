@@ -371,3 +371,66 @@ function binaryAgent(str) {
 }
 
 binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+
+
+
+
+
+/*=================
+Everything be true
+=================*/
+
+
+function truthCheck(collection, pre) {
+  // Is everyone being true?
+  
+  return collection.every(function(obj){
+    
+    if( !obj[pre] ){
+      return false ;
+    }else{
+      return true ;
+    }
+  });
+}
+
+truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+
+
+
+
+/*=================
+Arguments Optionnal
+=================*/
+
+
+function addTogether() {
+  
+  for (var i = 0; i<arguments.length;i++){
+    if(typeof arguments[i] !== "number"){
+      return undefined;
+    }
+  }
+  
+  if( arguments.length === 2 ){
+    
+    
+    return arguments[0]+arguments[1];
+    
+  }else{
+    
+    var args = Array.from(arguments);
+    
+    return function SumTwoAnd (arg){
+      if (typeof arg === "number" && typeof args[0] === "number"){
+        return arg+args[0];
+      }else{
+        return undefined;
+      }
+    };
+    
+  }
+}
+
+addTogether(2)(3);
+
