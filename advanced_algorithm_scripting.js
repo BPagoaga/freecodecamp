@@ -160,3 +160,57 @@ function howMuchMoney(cid){
 // ["ONE HUNDRED", 100.00]]
 
 checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
+
+
+
+
+
+/*================
+Inventory Update
+================*/ 
+
+
+updateInventory(arr1, arr2) {
+  // All inventory must be accounted for or you're fired!
+  var c = arr1.length;
+  var items = [];
+  
+  arr1.forEach(function(elem){
+    items.push(elem[1]);
+  });
+  
+  arr2.forEach(function(element,index,array){
+    
+    if(items.indexOf(element[1]) === -1){
+      arr1.push(element);
+    }
+    
+    for(var i = 0; i<c; i++){
+      if(arr2[index][1] === arr1[i][1]){
+        arr1[i][0] = arr1[i][0] + arr2[index][0];
+      }
+    }
+    
+  });
+  arr1.sort(function(a,b){
+    return a[1]>b[1];
+  });
+  return arr1;
+}
+
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]);
