@@ -82,3 +82,81 @@ function cleanArray(array) {
 
 sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]);
 
+
+
+
+
+/*=====================
+Exact Change
+=====================*/
+
+
+
+function checkCashRegister(price, cash, cid) {
+  
+  // Here is your change, ma'am.
+  var change = parseFloat( (cash-price).toFixed(2) );
+  var enoughChange = parseFloat( howMuchMoney(cid) );
+  var currencyValue = {
+    "ONE HUNDRED": 100,
+    "TWENTY": 20,
+    "TEN": 10,
+    "FIVE": 5,
+    "ONE": 1,
+    "QUARTER": 0.25,
+    "DIME": 0.10,
+    "NICKEL": 0.05,
+    "PENNY": 0.01
+  };
+  var result = [];
+  
+  cid.reverse();
+  
+  //return change;
+  // if not enough cash in drawer
+  if( enoughChange < change ){
+    return "Insufficient Funds";
+  }else if( enoughChange === change ){
+    return "Closed";
+  }else{
+    var elem = Object.keys(currencyValue);
+      
+      for(var i=0; i<elem.length; i++){
+        //headache incoming
+        var remainder = currencyValue[elem[i]] * Math.floor(change/currencyValue[elem[i]]);
+        
+        var currencyChange = remainder > cid[i][1] ? cid[i][1] : remainder;
+        console.log(change);
+        if( change > currencyValue[elem[i]] ){
+          result.push( [elem[i], currencyChange] );
+          change -= currencyChange;
+          change = parseFloat(change.toFixed(2));
+        }
+      }
+    
+    return parseFloat( howMuchMoney(result) ) === parseFloat( (cash-price).toFixed(2) ) ? result : "Insufficient Funds" ;
+    
+  }
+}
+
+
+function howMuchMoney(cid){
+  var result = cid.reduce(function(a, b){
+    return a+ b[1];
+  }, 0).toFixed(2);
+  
+  return result;
+}
+
+// Example cash-in-drawer array:
+// [["PENNY", 1.01],
+// ["NICKEL", 2.05],
+// ["DIME", 3.10],
+// ["QUARTER", 4.25],
+// ["ONE", 90.00],
+// ["FIVE", 55.00],
+// ["TEN", 20.00],
+// ["TWENTY", 60.00],
+// ["ONE HUNDRED", 100.00]]
+
+checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
