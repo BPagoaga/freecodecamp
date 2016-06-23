@@ -214,3 +214,53 @@ var newInv = [
 ];
 
 updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]);
+
+
+
+
+
+/*=====================
+No repeat please !
+=====================*/
+
+
+function permAlone(str) {
+  var arr=str.split(''),
+      permutations=[],
+      tmp;
+  
+  function swap(index1, index2) {
+    tmp = arr[index1];
+    arr[index1] = arr[index2];
+    arr[index2] = tmp;
+  }
+  
+  //Heap's algorithm, generates all the permutations recursively
+  function generate(n){
+    
+    if( n === 1 ){
+      permutations.push(arr.join(''));
+    }else{
+      
+      for(var i=0; i != n; i++){
+        
+        generate(n - 1);
+        
+        swap(n % 2 ? 0 : i, n - 1);
+      }
+    }
+  }
+  
+  generate(arr.length);
+  
+  var regex = /(.)\1+/g;
+  
+  // Filter the array of repeated permutations.
+  var filtered = permutations.filter(function(string) {
+    return !string.match(regex);
+  });
+  
+  return filtered.length;
+}
+
+permAlone('aab');
