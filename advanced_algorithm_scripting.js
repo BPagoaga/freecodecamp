@@ -342,3 +342,44 @@ function makeFriendlyDates(arr) {
 
 makeFriendlyDates(["2022-09-05", "2023-09-05"]);
 
+
+
+
+/*================
+Make A Person
+================*/
+
+
+
+var Person = function(firstAndLast) {
+  
+  this.getFirstName = function(){
+    return firstAndLast.substr(0, firstAndLast.indexOf(" "));
+  };
+  this.getLastName = function(){
+    return firstAndLast.substr(firstAndLast.indexOf(" ")+1);
+  };
+  this.getFullName = function(){
+    return firstAndLast;
+  };
+  this.setFirstName = function(first){
+    var arr = firstAndLast.split(" ");
+    arr.splice(0, 1, first);
+    firstAndLast = arr.join(" ");
+  };
+  this.setLastName = function(last){
+    var arr = firstAndLast.split(" ");
+    arr.splice(1, 1, last);
+    firstAndLast = arr.join(" ");
+  };
+  this.setFullName = function(full){
+    firstAndLast = full;
+  };
+  
+  return firstAndLast;
+};
+
+var bob = new Person('Bob Ross');
+bob.getFullName();
+
+
