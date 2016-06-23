@@ -264,3 +264,81 @@ function permAlone(str) {
 }
 
 permAlone('aab');
+
+
+
+
+/*==================
+Friendly Date Ranges
+==================*/
+
+
+
+function makeFriendlyDates(arr) {
+  
+  var start = arr[0].split('-'),
+      end = arr[1].split('-'),
+      monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  
+  //we will create two date objects corresponding to the start and end dates, easier to manipulate
+  var array = [start, end];
+  
+  array.forEach(function(element,i){
+    
+    element = {
+      day: parseInt(element[2]),
+      month: monthNames[parseInt(element[1])-1],
+      year: parseInt(element[0])
+     };
+    
+    switch(element.day){
+      case (1):
+        element.day = element.day+"st";
+        break;
+      case (2):
+        element.day = element.day+"nd";
+        break;
+      case (3):
+        element.day = element.day+"rd";
+        break;
+      default:
+        element.day = element.day+"th";
+        break;
+    }
+    
+    array[i] = {
+      month: element.month,
+      day: element.day,
+      year: element.year
+    };
+  });
+  
+  // Once we have our objects, we set up variables for the conditions : less than a year, same month, etc.
+  var range = new Date(arr[1]) - new Date(arr[0]);
+  var an = 365*24*3600*1000;
+  var currentYear = (new Date()).getFullYear();
+  
+  // if start === end, we just stop here
+  if(arr[0]===arr[1]){
+    start = array[0].month +" "+ array[0].day +", "+ array[0].year;
+    return [start];
+  }
+  
+  if(range<an){
+    
+    start = array[0].month +" "+ array[0].day + (array[0].year === currentYear ? "" : ", "+array[0].year);
+        
+    end = (array[1].month === array[0].month && array[1].year === array[0].year ? "" : array[1].month +" ") + array[1].day;
+  }else{
+  
+    start = array[0].month +" "+ array[0].day +", "+ array[0].year;
+    end = array[1].month +" "+ array[1].day + ", "+ array[1].year;
+  }
+  
+  array = [start, end];
+  
+  return array;
+}
+
+makeFriendlyDates(["2022-09-05", "2023-09-05"]);
+
